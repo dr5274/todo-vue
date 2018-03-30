@@ -24,6 +24,26 @@
     </thead>
 
     <tbody>
+        <tr v-for="todoItem in todoItems" :key="todoItem.id">
+
+            <td>
+                <span class="badge">{{todoItem.id}}</span>
+            </td>
+
+            <td>
+                {{todoItem.description}}
+            </td>
+
+            <td class="text-center">
+                <span class="clickable fa" v-bind:class="{ 'fa-calendar-check-o': todoItem.isComplete,  'fa-calendar-o': !todoItem.isComplete }"
+                    ></span>
+            </td>
+
+            <td class="text-center">
+                <span class="clickable fa fa-trash" ></span>
+            </td>
+            
+        </tr>
     </tbody>
 
     </table>
@@ -32,9 +52,34 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import TodoItem from "@/components/TodoItem.vue";
+let nextTodoId = 1;
 
 @Component({
-  components: {}
+  components: {
+    TodoItem
+  },
+  data() {
+    return {
+      todoItems: [
+        {
+          id: nextTodoId++,
+          description: "Learn Vue",
+          isComplete: false
+        },
+        {
+          id: nextTodoId++,
+          description: "Learn about single-file components",
+          isComplete: false
+        },
+        {
+          id: nextTodoId++,
+          description: "Fall in love",
+          isComplete: false
+        }
+      ]
+    };
+  }
 })
 export default class TodoList extends Vue {}
 </script>
